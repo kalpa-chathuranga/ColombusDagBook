@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="countries">
+
+        <item name = "sl">Sri lanka</item>
+        <item name = "pk">Pakistan</item>
+        <item name = "ind"> india</item>
+        <item name = "eng">England</item>
+        <item name = "aus">Australia</item>
+
+
+    </string-array>
+
+
+
+</resources>
