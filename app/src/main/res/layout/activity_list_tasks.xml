@@ -17,11 +17,11 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/list"
-        android:layout_below="@+id/add_task_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="111dp"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:layout_below="@+id/add_task_button"
+        />
 
 </RelativeLayout>

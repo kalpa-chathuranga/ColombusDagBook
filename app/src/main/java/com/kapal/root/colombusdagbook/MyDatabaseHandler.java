@@ -12,7 +12,7 @@ public class MyDatabaseHandler {
 
     public String DB_NAME = "TestDb";
 
-    private String TABLE_NAME = "my_test_table";
+    public String TABLE_NAME = "my_test_table";
 
 
     // Columns
@@ -30,9 +30,9 @@ public class MyDatabaseHandler {
 
     public String createTable(){
 
-        String col1 = "TASK_ID INT(5) , ";
+        String col1 = "_id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, ";
         String col2 = "TASK_DESCRIPTION VARCHAR(40) , ";
-        String col3 = "TASK_LOCATION INT(30) , ";
+        String col3 = "TASK_LOCATION VARCHAR(30) , ";
         String col4 = "TASK_LATITUDE FLOAT , ";
         String col5 = "TASK_LONGTITUDE FLOAT , ";
         String col6 = "TASK_CRATED_AT DATETIME";
@@ -43,10 +43,16 @@ public class MyDatabaseHandler {
         return q;
     }
 
-    public String insertRow(int id, String desc, String loca, double lat, double longt, Date dt)
+    public String insertRow(String desc, String loca, double lat, double longt)
     {
-        String q = "INSERT INTO "+ TABLE_NAME +" VALUES ("+id+",'"+desc+"','"+loca+"',"+lat+","+longt+", null)" ;
+        String q = "INSERT INTO "+ TABLE_NAME +" (TASK_DESCRIPTION, TASK_LOCATION , TASK_LATITUDE, TASK_LONGTITUDE )VALUES ('"+desc+"','"+loca+"',"+lat+","+longt+")" ;
 
+        return q;
+    }
+
+    public String getRow(int id)
+    {
+        String q = "SELECT * FROM "+TABLE_NAME+" WHERE _id="+id;
         return q;
     }
 

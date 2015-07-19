@@ -2,6 +2,7 @@ package com.kapal.root.colombusdagbook;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -25,6 +26,9 @@ public class AddTaskActivity extends Activity implements OnClickListener {
     private TextView created_tv;
     private Button save_task_btn;
 
+    public MyDatabaseHandler dbh;
+    public SQLiteDatabase db;
+
     private EditText description_et, location_et, latitude_et, longtitude_et;
 
     @Override
@@ -46,19 +50,13 @@ public class AddTaskActivity extends Activity implements OnClickListener {
         String currentDateTime = DateFormat.getDateTimeInstance().format(new Date());
         created_tv.setText( currentDateTime);
 
-        MyDatabaseHandler dbh = new MyDatabaseHandler();
+        dbh = new MyDatabaseHandler();
 
 
-        SQLiteDatabase db = openOrCreateDatabase(dbh.DB_NAME, MODE_PRIVATE, null);
+        db = openOrCreateDatabase(dbh.DB_NAME, MODE_PRIVATE, null);
         db.execSQL(dbh.createTable());
 
-        try {
-            db.execSQL(dbh.insertRow(1,"desc1", "location1", 10.254, 41.256, null ));
-            Log.d(TAG, "DATA inserted");
-        } catch (SQLException e) {
-            Log.d(TAG, "DATA NOT inserted");
-            e.printStackTrace();
-        }
+
 
 
     }
@@ -67,6 +65,29 @@ public class AddTaskActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
 
+
+        if (v.getId() == R.id.save_task_btn)
+        {
+            try {
+                db.execSQL(dbh.insertRow(
+                        description_et.getText().toString(),
+                        location_et.getText().toString(),
+                        latitude_et.getAlpha(),
+                        longtitude_et.getAlpha()
+                ));
+
+
+                Log.d(TAG, "DATA inserted");
+
+                startActivity(new Intent(AddTaskActivity.this, ListTasksActivity.class));
+
+
+            } catch (SQLException e) {
+                Log.d(TAG, "DATA NOT inserted");
+                e.printStackTrace();
+            }
+
+        }
 
 
     }
