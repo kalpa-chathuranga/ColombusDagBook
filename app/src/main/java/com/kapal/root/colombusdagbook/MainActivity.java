@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 
 
 
-        startActivity(new Intent(MainActivity.this , ListTasksActivity.class));
+        startActivity(new Intent(MainActivity.this , MapActivity.class));
 
 
     }

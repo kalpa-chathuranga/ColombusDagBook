@@ -1,18 +1,26 @@
 package com.kapal.root.colombusdagbook;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    final Context context = this;
+    private String TAG= "xxx";
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     @Override
@@ -21,11 +29,47 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         setContentView(R.layout.activity_map);
         //setUpMapIfNeeded();
 
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                                .findFragmentById(R.id.map);
+
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getSupportFragmentManager().findFragmentById(R.id.map);
+
+        // Getting a reference to the map
+        mMap = supportMapFragment.getMap();
+        setUpMap();
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Log.d(TAG, latLng.toString());
+
+                Context context = getApplicationContext();
+                CharSequence text = "You have clicked on : "+latLng.toString();
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+
+                Log.d("yyy", latLng.toString());
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.my_custom_dialog);
+                dialog.setTitle("Title...");
+
+                TextView tv1 = (TextView) findViewById(R.id.textView1);
+                TextView tv2 = (TextView) findViewById(R.id.textView2);
 
 
-        //mapFragment.getMapAsync(this);
+                dialog.show();
+
+            }
+        });
+
 
 
     }
@@ -71,7 +115,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(7.0000, 81.0000)).title("Marker"));
+
+        mMap.setMyLocationEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(7.0000, 81.0000), 13));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(7.0000, 81.0000))
+                .title("SRI LANKA")
+                .snippet("Most beautifull country in the world"));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
     }
 
     @Override
