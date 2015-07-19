@@ -24,8 +24,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                                 .findFragmentById(R.id.map);
 
+
         //mapFragment.getMapAsync(this);
-        //mapFragment.getMap(mMap);
+
 
     }
 
@@ -70,7 +71,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(7.0000, 81.0000)).title("Marker"));
     }
 
     @Override
@@ -85,6 +86,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         map.addMarker(new MarkerOptions()
                 .title("Sydney")
                 .snippet("The most populous city in Australia.")
-                .position(sydney));
+                .position(sydney)
+                 );
     }
 }
