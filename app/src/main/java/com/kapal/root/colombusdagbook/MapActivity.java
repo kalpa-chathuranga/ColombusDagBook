@@ -2,11 +2,18 @@ package com.kapal.root.colombusdagbook;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View.OnClickListener;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +29,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     final Context context = this;
     private String TAG= "xxx";
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+
+    public MyDatabaseHandler dbh ;
+    public SQLiteDatabase db ;
+
+
+    public EditText description;
+    public EditText location;
+    public Button save_dialog_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +58,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 Log.d(TAG, latLng.toString());
 
                 Context context = getApplicationContext();
-                CharSequence text = "You have clicked on : "+latLng.toString();
+                CharSequence text = "You have clicked on : " + latLng.toString();
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
@@ -53,20 +68,72 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onMapLongClick(LatLng latLng) {
+            public void onMapLongClick(final LatLng latLng) {
 
                 Log.d("yyy", latLng.toString());
 
+                // Add Marker on selected location
+                //Todo: Add custom icon for selected location
+                mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                );
+
+                //Create a dialog widndow
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.my_custom_dialog);
-                dialog.setTitle("Title...");
 
+
+                //Get references to dialog window view items
                 TextView tv1 = (TextView) findViewById(R.id.textView1);
                 TextView tv2 = (TextView) findViewById(R.id.textView2);
+                location = (EditText) dialog.findViewById(R.id.dialog_location_edit_text);
+                description = (EditText) dialog.findViewById(R.id.dialog_descriptio_edit_text);
+                save_dialog_btn = (Button) dialog.findViewById(R.id.save_dialog_btn);
 
-
+                // Show dialog
                 dialog.show();
 
+
+                // onClick: save button , Send place name, description, lat, long to DB
+                save_dialog_btn.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dbh = new MyDatabaseHandler();
+
+                        db = openOrCreateDatabase(dbh.DB_NAME, MODE_PRIVATE, null);
+
+                        try {
+                            db.execSQL(dbh.insertRow(
+                                    location.getText().toString(),
+                                    description.getText().toString(),
+                                    latLng.latitude,
+                                    latLng.longitude
+                            ));
+
+
+                            Log.d(TAG, "DATA inserted");
+
+                            Context context = getApplicationContext();
+                            CharSequence text = " Marker added on " + latLng.toString();
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+
+                            startActivity(new Intent(MapActivity.this, ListTasksActivity.class));
+
+
+                        } catch (SQLException e) {
+                            Log.d(TAG, "DATA NOT inserted");
+                            e.printStackTrace();
+                        }
+
+                        Log.d(TAG,"Save button clicked");
+
+
+                    }
+                });
             }
         });
 

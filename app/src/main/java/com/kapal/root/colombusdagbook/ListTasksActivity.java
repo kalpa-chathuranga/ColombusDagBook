@@ -100,8 +100,8 @@ public class ListTasksActivity extends Activity implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Intent i  = new Intent(ListTasksActivity.this, MapActivity.class);
-       // i.putExtra("id", id);
+        Intent i  = new Intent(ListTasksActivity.this, EditTaskActivity.class);
+        i.putExtra("id", id);
 
         startActivity(i);
 
