@@ -12,7 +12,7 @@ public class MyDatabaseHandler {
 
     public String DB_NAME = "TestDb";
 
-    public String TABLE_NAME = "my_test_table";
+    public String TABLE_NAME = "kapal_test_table";
 
 
     // Columns
