@@ -21,7 +21,7 @@ import android.widget.SimpleCursorAdapter;
 public class ListTasksActivity extends Activity implements AdapterView.OnItemClickListener{
 
     private String TAG = "xxx";
-    private Button add_task_btn;
+    private Button show_map_btn , task_lst_btn , help_btn;
     private ListView myList_lv;
 
     public SQLiteDatabase db;
@@ -33,14 +33,36 @@ public class ListTasksActivity extends Activity implements AdapterView.OnItemCli
         setContentView(R.layout.activity_list_tasks);
 
 
-        add_task_btn = (Button) findViewById(R.id.add_task_button);
+        show_map_btn = (Button) findViewById(R.id.show_map_btn);
+        task_lst_btn = (Button) findViewById(R.id.task_lst_btn);
+        help_btn = (Button) findViewById(R.id.help_btn);
 
-        add_task_btn.setOnClickListener(new View.OnClickListener() {
+        show_map_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ListTasksActivity.this, AddTaskActivity.class));
+
+                startActivity(new Intent(ListTasksActivity.this, MapActivity.class));
             }
         });
+
+        task_lst_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        help_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(ListTasksActivity.this, HelpActivity.class));
+            }
+        });
+
+
+
+
+
 
 
         try {

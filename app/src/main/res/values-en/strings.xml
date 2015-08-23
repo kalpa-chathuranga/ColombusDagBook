@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Colombus Dagbook</string>
+    <string name="description">Details :</string>
+    <string name="hello_world"></string>
+    <string name="help_btn">Help</string>
+    <string name="id">ID : </string>
+    <string name="location">Place :</string>
+    <string name="save_btn">Save</string>
+    <string name="show_map_btn">Show Map</string>
+    <string name="sinhala_button">සිංහල</string>
+    <string name="task_list">Task List</string>
+    <string name="title_activity_map">Map</string>
+    <string name="english_button">English</string>
+</resources>

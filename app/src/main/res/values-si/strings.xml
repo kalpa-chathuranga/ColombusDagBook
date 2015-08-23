@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="english_button">English</string>
+    <string name="app_name">කොලොම්බස්ගේ පොත</string>
+    <string name="description">විස්තරය  :</string>
+    <string name="help_btn">උදවු</string>
+    <string name="id">මුලිකය  :</string>
+    <string name="location">ස්ථානය  :</string>
+    <string name="save_btn">ආරක්ෂාව</string>
+    <string name="show_map_btn">සිතියම</string>
+    <string name="sinhala_button">සිංහල</string>
+    <string name="task_list">අයිතමයන්</string>
+    <string name="title_activity_map">සිතියම</string>
+</resources>
