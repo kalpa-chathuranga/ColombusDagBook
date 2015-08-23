@@ -315,6 +315,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     }
 
     /**
+     * Initial Map configuration is set up here
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
      * <p/>
